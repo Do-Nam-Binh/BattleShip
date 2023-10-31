@@ -2,10 +2,11 @@ const ship = require("./ship");
 
 const gameBoard = () => {
   const boardArr = [];
+  let shipNum = 0;
 
   const initBoard = () => {
     for (let i = 0; i < 100; i++) {
-      boardArr.push({ hasShip: false, isShot: false });
+      boardArr.push({ hasShip: false, isShot: false, ship: null });
     }
   };
 
@@ -14,10 +15,13 @@ const gameBoard = () => {
       for (let i = 0; i < ship.length(); i++) {
         if (axis == "x") {
           boardArr[position + i].hasShip = true;
+          boardArr[position + i].ship = ship;
         } else {
           boardArr[position + i * 10].hasShip = true;
+          boardArr[position + i].ship = ship;
         }
       }
+      shipNum++;
     } else {
       return "Cannot place ship on occupied position";
     }
@@ -39,11 +43,32 @@ const gameBoard = () => {
     return true;
   };
 
+  const receiveAttack = (location) => {
+    if (boardArr[location].isShot == false) {
+      boardArr[location].isShot = true;
+
+      if (boardArr[location].hasShip == false) {
+        return "Shot missed!";
+      } else {
+        boardArr[location].ship.hit();
+
+        if (boardArr[location].ship.sunk() == true) {
+          return "Ship sunk!";
+        } else {
+          return "Hit!";
+        }
+      }
+    } else {
+      return "Already fired at location!";
+    }
+  };
+
   if (!boardArr.length) initBoard();
 
   return {
     boardArr: () => boardArr,
     placeShip: placeShip,
+    receiveAttack: receiveAttack,
   };
 };
 

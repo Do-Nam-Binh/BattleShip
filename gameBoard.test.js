@@ -4,14 +4,14 @@ const ship = require("./ship.js");
 test("Create gameboard", () => {
   const testArr = [];
   for (let i = 0; i < 100; i++) {
-    testArr.push({ hasShip: false, isShot: false });
+    testArr.push({ hasShip: false, isShot: false, ship: null });
   }
   const gameBoardTest = gameBoard();
   expect(gameBoardTest.boardArr()).toEqual(testArr);
 });
 
 test("Place ship at position 3 of length 4 horizontally", () => {
-  const shipTest = ship(4);
+  const shipTest = ship("test1", 4);
   const gameBoardTest = gameBoard();
 
   gameBoardTest.placeShip(3, shipTest, "x");
@@ -23,7 +23,7 @@ test("Place ship at position 3 of length 4 horizontally", () => {
 });
 
 test("Place ship at position 3 of length 4 vertically", () => {
-  const shipTest = ship(4);
+  const shipTest = ship("test1", 4);
   const gameBoardTest = gameBoard();
 
   gameBoardTest.placeShip(3, shipTest, "y");
@@ -35,8 +35,8 @@ test("Place ship at position 3 of length 4 vertically", () => {
 });
 
 test("Place ship at occupied position", () => {
-  const shipTest = ship(4);
-  const shipTest2 = ship(3);
+  const shipTest = ship("test1", 4);
+  const shipTest2 = ship("test2", 3);
   const gameBoardTest = gameBoard();
 
   gameBoardTest.placeShip(13, shipTest, "x");
@@ -49,4 +49,52 @@ test("Place ship at occupied position", () => {
   expect(gameBoardTest.boardArr()[14].hasShip).toBe(true);
   expect(gameBoardTest.boardArr()[15].hasShip).toBe(true);
   expect(gameBoardTest.boardArr()[16].hasShip).toBe(true);
+});
+
+test("Check ship is placed", () => {
+  const shipTest = ship("test1", 3);
+  const gameBoardTest = gameBoard();
+
+  gameBoardTest.placeShip(3, shipTest, "x");
+
+  expect(gameBoardTest.boardArr()[3].ship).toEqual(shipTest);
+  expect(gameBoardTest.boardArr()[4].ship).toEqual(shipTest);
+  expect(gameBoardTest.boardArr()[5].ship).toEqual(shipTest);
+  expect(gameBoardTest.boardArr()[6].ship).toBe(null);
+});
+
+test("Attack missed", () => {
+  const gameBoardTest = gameBoard();
+
+  expect(gameBoardTest.receiveAttack(3)).toBe("Shot missed!");
+  expect(gameBoardTest.boardArr()[3].isShot).toBe(true);
+});
+
+test("Attack hit ship", () => {
+  const shipTest = ship("test", 3);
+  const gameBoardTest = gameBoard();
+
+  gameBoardTest.placeShip(2, shipTest, "x");
+
+  expect(gameBoardTest.receiveAttack(3)).toBe("Hit!");
+  expect(gameBoardTest.boardArr()[3].isShot).toBe(true);
+});
+
+test("Attack sunk ship", () => {
+  const shipTest = ship("test", 3);
+  const gameBoardTest = gameBoard();
+
+  gameBoardTest.placeShip(2, shipTest, "x");
+
+  expect(gameBoardTest.receiveAttack(2)).toBe("Hit!");
+  expect(gameBoardTest.receiveAttack(3)).toBe("Hit!");
+  expect(gameBoardTest.receiveAttack(4)).toBe("Ship sunk!");
+  expect(gameBoardTest.boardArr()[2].ship.sunk()).toBe(true);
+});
+
+test("Attack location that has been shot", () => {
+  const gameBoardTest = gameBoard();
+
+  expect(gameBoardTest.receiveAttack(2)).toBe("Shot missed!");
+  expect(gameBoardTest.receiveAttack(2)).toBe("Already fired at location!");
 });
