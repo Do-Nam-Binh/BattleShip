@@ -82,14 +82,35 @@ test("Attack hit ship", () => {
 
 test("Attack sunk ship", () => {
   const shipTest = ship("test", 3);
+  const shipTest2 = ship("test2", 2);
   const gameBoardTest = gameBoard();
 
   gameBoardTest.placeShip(2, shipTest, "x");
+  gameBoardTest.placeShip(13, shipTest2, "y");
 
   expect(gameBoardTest.receiveAttack(2)).toBe("Hit!");
   expect(gameBoardTest.receiveAttack(3)).toBe("Hit!");
   expect(gameBoardTest.receiveAttack(4)).toBe("Ship sunk!");
   expect(gameBoardTest.boardArr()[2].ship.sunk()).toBe(true);
+});
+
+test("Attack sunk last ship", () => {
+  const shipTest = ship("test", 3);
+  const shipTest2 = ship("test2", 2);
+  const gameBoardTest = gameBoard();
+
+  gameBoardTest.placeShip(2, shipTest, "x");
+  gameBoardTest.placeShip(13, shipTest2, "y");
+
+  gameBoardTest.receiveAttack(2);
+  gameBoardTest.receiveAttack(3);
+  gameBoardTest.receiveAttack(4);
+
+  expect(gameBoardTest.boardArr()[23].hasShip).toBe(true);
+  expect(gameBoardTest.boardArr()[23].ship).toEqual(shipTest2);
+
+  expect(gameBoardTest.receiveAttack(13)).toBe("Hit!");
+  expect(gameBoardTest.receiveAttack(23)).toBe("All ships have been sunk!");
 });
 
 test("Attack location that has been shot", () => {

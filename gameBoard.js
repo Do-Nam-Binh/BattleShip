@@ -18,7 +18,7 @@ const gameBoard = () => {
           boardArr[position + i].ship = ship;
         } else {
           boardArr[position + i * 10].hasShip = true;
-          boardArr[position + i].ship = ship;
+          boardArr[position + i * 10].ship = ship;
         }
       }
       shipNum++;
@@ -53,6 +53,10 @@ const gameBoard = () => {
         boardArr[location].ship.hit();
 
         if (boardArr[location].ship.sunk() == true) {
+          shipNum--;
+          if (shipNum == 0) {
+            return "All ships have been sunk!";
+          }
           return "Ship sunk!";
         } else {
           return "Hit!";
