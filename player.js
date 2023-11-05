@@ -12,7 +12,7 @@ const player = (name, board, isComputer) => {
         location = Math.floor(Math.random() * 100);
       }
       attacked.push(location);
-      console.log(location);
+      //   console.log(location);
       playerAttack(player, location);
     }
   };
