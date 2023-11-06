@@ -1,5 +1,5 @@
-const gameBoard = require("./gameBoard.js");
-const ship = require("./ship.js");
+const gameBoard = require("../gameBoard.js");
+const ship = require("../ship.js");
 
 test("Create gameboard", () => {
   const testArr = [];

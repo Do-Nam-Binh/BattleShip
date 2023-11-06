@@ -1,5 +1,5 @@
-const player = require("./player.js");
-const gameBoard = require("./gameBoard.js");
+const player = require("../player.js");
+const gameBoard = require("../gameBoard.js");
 
 test("Player attack", () => {
   const gameBoard1 = gameBoard();

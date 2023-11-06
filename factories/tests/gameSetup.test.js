@@ -1,4 +1,4 @@
-const gameSetup = require("./gameSetup");
+const gameSetup = require("../gameSetup");
 
 test("Check game is set up correctly", () => {
   const game = gameSetup();
