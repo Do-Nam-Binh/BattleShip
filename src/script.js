@@ -1,7 +1,9 @@
 const createBoard = require("../factories/gameBoardDOM");
 const gameSetup = require("../factories/gameSetup");
 
-const body = document.querySelector(".player");
+const playerBoardDom = document.querySelector(".player");
+const computerBoardDom = document.querySelector(".computer");
 const game = gameSetup();
 
-body.appendChild(createBoard(game.playerBoard()));
+playerBoardDom.appendChild(createBoard(game.playerBoard()));
+computerBoardDom.appendChild(createBoard(game.computerBoard()));
