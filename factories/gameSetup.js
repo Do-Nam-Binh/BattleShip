@@ -16,9 +16,9 @@ const gameSetup = () => {
   const shipSmall1 = ship("small1", 2);
   const shipSmall2 = ship("small2", 2);
 
-  gameBoard1.placeShip(25, shipBig1, "x");
+  gameBoard1.placeShip(20, shipBig1, "x");
   gameBoard1.placeShip(30, shipMedium1, "y");
-  gameBoard1.placeShip(88, shipSmall1, "x");
+  gameBoard1.placeShip(33, shipSmall1, "x");
 
   gameBoard2.placeShip(22, shipBig2, "x");
   gameBoard2.placeShip(10, shipMedium2, "y");

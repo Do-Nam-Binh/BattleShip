@@ -119,3 +119,21 @@ test("Attack location that has been shot", () => {
   expect(gameBoardTest.receiveAttack(2)).toBe("Shot missed!");
   expect(gameBoardTest.receiveAttack(2)).toBe("Already fired at location!");
 });
+
+test("Place ship out of bounds x-axis", () => {
+  const gameBoardTest = gameBoard();
+  const shipTest = ship("", 4);
+
+  expect(gameBoardTest.placeShip(7, shipTest, "x")).toBe(
+    "Ship is out of bounds"
+  );
+});
+
+test("Place ship out of bounds y-axis", () => {
+  const gameBoardTest = gameBoard();
+  const shipTest = ship("", 3);
+
+  expect(gameBoardTest.placeShip(89, shipTest, "y")).toBe(
+    "Ship is out of bounds"
+  );
+});

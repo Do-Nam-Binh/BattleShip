@@ -11,7 +11,8 @@ const gameBoard = () => {
   };
 
   const placeShip = (position, ship, axis) => {
-    if (checkOccupied(position, ship, axis)) {
+    const check = checkOccupied(position, ship, axis);
+    if (check == true) {
       for (let i = 0; i < ship.length(); i++) {
         if (axis == "x") {
           boardArr[position + i].hasShip = true;
@@ -22,6 +23,9 @@ const gameBoard = () => {
         }
       }
       shipNum++;
+    }
+    if (check == "Out of bounds") {
+      return "Ship is out of bounds";
     } else {
       return "Cannot place ship on occupied position";
     }
@@ -29,15 +33,27 @@ const gameBoard = () => {
 
   const checkOccupied = (position, ship, axis) => {
     const locationOcc = [];
+    if (axis == "x") {
+      if (position > Math.ceil((position + 1) / 10) * 10 - ship.length()) {
+        return "Out of bounds";
+      }
+    } else {
+      if (
+        position >
+        Math.ceil((position + 10) / 100) * 100 - ship.length() * 10
+      ) {
+        return "Out of bounds";
+      }
+    }
+
     for (let i = 0; i < ship.length(); i++) {
       if (axis == "x") {
         if (boardArr[position + i].hasShip == true) {
           return false;
         }
-      } else {
-        if (boardArr[position + i * 10].hasShip == true) {
-          return false;
-        }
+      }
+      if (boardArr[position + i * 10].hasShip == true) {
+        return false;
       }
     }
     return true;
