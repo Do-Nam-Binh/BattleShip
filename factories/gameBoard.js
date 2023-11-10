@@ -38,10 +38,7 @@ const gameBoard = () => {
         return "Out of bounds";
       }
     } else {
-      if (
-        position >
-        Math.ceil((position + 10) / 100) * 100 - ship.length() * 10
-      ) {
+      if (position > Math.ceil((position + 1) / 100) * 100 - ship.length()) {
         return "Out of bounds";
       }
     }
