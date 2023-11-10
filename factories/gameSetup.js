@@ -33,6 +33,8 @@ const gameSetup = () => {
     playerTurn: () => playerTurn,
     playerBoard: () => playerCharacter.boardArr(),
     computerBoard: () => computer.boardArr(),
+    playerBoardObj: () => playerCharacter.board(),
+    computerBoardObj: () => computer.board(),
   };
 };
 
