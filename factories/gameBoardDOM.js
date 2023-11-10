@@ -1,25 +1,44 @@
-function createCell(index, hasShip = null) {
+function createCell(index, isPlayer) {
   const cell = document.createElement("div");
-  cell.classList.add(`cell`);
-  cell.classList.add(`${index}`);
-  if (hasShip == true) {
-    cell.classList.add("hasShip");
+
+  if (isPlayer == true) {
+    cell.classList.add(`playerCell`);
+  } else {
+    cell.classList.add(`computerCell`);
   }
+
   cell.textContent = `${index}`;
+  cell.setAttribute("position", `${index}`);
+
   return cell;
 }
 
-function createBoard(boardArr) {
+function createBoard(boardArr, isPlayer) {
   const board = document.createElement("div");
   board.classList.add("board");
   for (let i = 0; i < 100; i++) {
     if (boardArr[i].hasShip) {
-      board.appendChild(createCell(i, true));
+      board.appendChild(createCell(i, isPlayer));
     } else {
-      board.appendChild(createCell(i));
+      board.appendChild(createCell(i, isPlayer));
     }
   }
   return board;
 }
 
-module.exports = createBoard;
+function updateBoard(cellName, board) {
+  const cells = document.getElementsByClassName(`${cellName}`);
+
+  for (let i = 0; i < 100; i++) {
+    if (board[i].hasShip == true) {
+      cells[i].classList.add("hasShip");
+    }
+  }
+}
+
+function placeShipDOM(ship, position, axis, board, cellName) {
+  board.placeShip(position, ship, axis);
+  updateBoard(cellName, board.boardArr());
+}
+
+module.exports = { createBoard, updateBoard, placeShipDOM };
