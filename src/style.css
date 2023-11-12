@@ -6,7 +6,6 @@
 body {
   display: grid;
   justify-content: center;
-  padding-top: 100px;
 }
 
 .game {
@@ -48,4 +47,8 @@ input {
 
 .insertShip {
   margin-bottom: 30px;
+}
+
+.deactive {
+  display: none;
 }

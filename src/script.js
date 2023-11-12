@@ -6,11 +6,16 @@ const {
 const gameSetup = require("../factories/gameSetup");
 const ship = require("../factories/ship.js");
 
+const placeShipOverlay = document.querySelector(".preGame");
+
 const playerBoardDom = document.querySelector(".player");
 const computerBoardDom = document.querySelector(".computer");
 const game = gameSetup();
 
-playerBoardDom.appendChild(createBoard(game.playerBoard(), true));
+const playerGameBoard = createBoard(game.playerBoard(), true);
+// placeShipOverlay.appendChild(playerGameBoard);
+
+playerBoardDom.appendChild(playerGameBoard);
 computerBoardDom.appendChild(createBoard(game.computerBoard(), false));
 updateBoard("playerCell", game.playerBoard());
 updateBoard("computerCell", game.computerBoard());
@@ -29,15 +34,37 @@ axisBtn.addEventListener("click", () => {
   }
 });
 
+let currShip = 0;
+const shipList = [
+  { shipName: "Carrier", size: 5 },
+  { shipName: "Battleship", size: 4 },
+  { shipName: "Destroyer", size: 3 },
+  { shipName: "Submarine", size: 3 },
+  { shipName: "Patrol Boat", size: 2 },
+];
+
+const shipNameDOM = document.querySelector(".shipName");
+shipNameDOM.textContent = shipList[currShip].shipName;
+
 placeShipBtn.addEventListener("click", () => {
-  const shipHolder = ship("", shipInput.value);
-  placeShipDOM(
+  const shipHolder = ship(shipList[currShip].shipName, shipList[currShip].size);
+  const result = placeShipDOM(
     shipHolder,
     Number.parseInt(locationInput.value),
     axisBtn.textContent.toLowerCase(),
     game.playerBoardObj(),
     "playerCell"
   );
+  if (result == true) {
+    currShip++;
+    if (currShip < 5) {
+      shipNameDOM.textContent = shipList[currShip].shipName;
+    }
+  }
+
+  if (currShip == 5) {
+    form.classList.add("deactive");
+  }
 });
 // const shipTest = ship("test", 3);
 // placeShipDOM(shipTest, 72, "y", game.playerBoardObj(), "playerCell");

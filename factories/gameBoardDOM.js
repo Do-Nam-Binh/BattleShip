@@ -37,8 +37,10 @@ function updateBoard(cellName, board) {
 }
 
 function placeShipDOM(ship, position, axis, board, cellName) {
-  board.placeShip(position, ship, axis);
+  const result = board.placeShip(position, ship, axis);
   updateBoard(cellName, board.boardArr());
+  console.log(result);
+  return result;
 }
 
 module.exports = { createBoard, updateBoard, placeShipDOM };
