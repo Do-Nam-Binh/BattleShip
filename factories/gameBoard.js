@@ -23,6 +23,7 @@ const gameBoard = () => {
         }
       }
       shipNum++;
+      return true;
     }
     if (check == "Out of bounds") {
       return "Ship is out of bounds";
@@ -38,7 +39,10 @@ const gameBoard = () => {
         return "Out of bounds";
       }
     } else {
-      if (position > Math.ceil((position + 1) / 100) * 100 - ship.length()) {
+      if (
+        position >
+        Math.ceil((position + 1) / 100) * 100 - (ship.length() - 1) * 10
+      ) {
         return "Out of bounds";
       }
     }
