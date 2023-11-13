@@ -2,6 +2,7 @@ const {
   createBoard,
   updateBoard,
   placeShipDOM,
+  placeShipsComputerBoard,
 } = require("../factories/gameBoardDOM");
 const gameSetup = require("../factories/gameSetup");
 const ship = require("../factories/ship.js");
@@ -76,3 +77,5 @@ placeShipBtn.addEventListener("click", () => {
     computerBoardChild[0].classList.remove("deactive");
   }
 });
+
+placeShipsComputerBoard(game.computerBoardObj());

@@ -1,3 +1,5 @@
+const ship = require("../factories/ship.js");
+
 function createCell(index, isPlayer) {
   const cell = document.createElement("div");
 
@@ -46,4 +48,42 @@ function placeShipDOM(ship, position, axis, board, cellName) {
   return result;
 }
 
-module.exports = { createBoard, updateBoard, placeShipDOM };
+function placeShipsComputerBoard(computerBoard) {
+  let currShip = 0;
+  const shipList = [
+    { shipName: "Carrier", size: 5 },
+    { shipName: "Battleship", size: 4 },
+    { shipName: "Destroyer", size: 3 },
+    { shipName: "Submarine", size: 3 },
+    { shipName: "Patrol Boat", size: 2 },
+  ];
+
+  while (currShip < 5) {
+    let position = Math.floor(Math.random() * 100) - 1;
+
+    let axis = Math.random() < 0.5 ? 0 : 1;
+    axis = axis == 0 ? "x" : "y";
+
+    try {
+      const result = placeShipDOM(
+        ship(shipList[currShip].shipName, shipList[currShip].size),
+        position,
+        axis,
+        computerBoard,
+        "computerCell"
+      );
+      if (result == true) {
+        currShip++;
+      }
+    } catch {
+      continue;
+    }
+  }
+}
+
+module.exports = {
+  createBoard,
+  updateBoard,
+  placeShipDOM,
+  placeShipsComputerBoard,
+};
