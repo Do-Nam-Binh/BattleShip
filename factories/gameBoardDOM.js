@@ -16,6 +16,9 @@ function createCell(index, isPlayer) {
 function createBoard(boardArr, isPlayer) {
   const board = document.createElement("div");
   board.classList.add("board");
+  if (!isPlayer) {
+    board.classList.add("deactive");
+  }
   for (let i = 0; i < 100; i++) {
     if (boardArr[i].hasShip) {
       board.appendChild(createCell(i, isPlayer));

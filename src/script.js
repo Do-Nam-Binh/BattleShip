@@ -48,6 +48,8 @@ shipNameDOM.textContent = shipList[currShip].shipName;
 const title = document.querySelector(".title");
 const boardNames = document.querySelectorAll(".boardName");
 
+const computerBoardChild = document.getElementsByClassName("board deactive");
+
 placeShipBtn.addEventListener("click", () => {
   const shipHolder = ship(shipList[currShip].shipName, shipList[currShip].size);
   const result = placeShipDOM(
@@ -62,6 +64,7 @@ placeShipBtn.addEventListener("click", () => {
     if (currShip < 5) {
       shipNameDOM.textContent = shipList[currShip].shipName;
     }
+    locationInput.value = "";
   }
 
   if (currShip == 5) {
@@ -70,5 +73,6 @@ placeShipBtn.addEventListener("click", () => {
     boardNames.forEach((board) => {
       board.classList.remove("deactive");
     });
+    computerBoardChild[0].classList.remove("deactive");
   }
 });

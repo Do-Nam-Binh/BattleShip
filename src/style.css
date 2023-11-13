@@ -10,7 +10,7 @@ body {
 
 .game {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
   gap: 80px;
   justify-content: center;
   align-content: center;
