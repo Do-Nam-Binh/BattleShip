@@ -13,7 +13,6 @@ const computerBoardDom = document.querySelector(".computer");
 const game = gameSetup();
 
 const playerGameBoard = createBoard(game.playerBoard(), true);
-// placeShipOverlay.appendChild(playerGameBoard);
 
 playerBoardDom.appendChild(playerGameBoard);
 computerBoardDom.appendChild(createBoard(game.computerBoard(), false));
@@ -46,6 +45,9 @@ const shipList = [
 const shipNameDOM = document.querySelector(".shipName");
 shipNameDOM.textContent = shipList[currShip].shipName;
 
+const title = document.querySelector(".title");
+const boardNames = document.querySelectorAll(".boardName");
+
 placeShipBtn.addEventListener("click", () => {
   const shipHolder = ship(shipList[currShip].shipName, shipList[currShip].size);
   const result = placeShipDOM(
@@ -64,7 +66,9 @@ placeShipBtn.addEventListener("click", () => {
 
   if (currShip == 5) {
     form.classList.add("deactive");
+    title.classList.add("deactive");
+    boardNames.forEach((board) => {
+      board.classList.remove("deactive");
+    });
   }
 });
-// const shipTest = ship("test", 3);
-// placeShipDOM(shipTest, 72, "y", game.playerBoardObj(), "playerCell");

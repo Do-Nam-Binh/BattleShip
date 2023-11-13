@@ -45,10 +45,22 @@ input {
   padding: 5px;
 }
 
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
 .insertShip {
-  margin-bottom: 30px;
+  margin: 10px 0;
 }
 
 .deactive {
   display: none;
+}
+
+.boardName {
+  font-size: 30px;
+  font-weight: bolder;
+  margin: 20px 0;
 }
